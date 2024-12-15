@@ -133,7 +133,7 @@ if uploaded_file is not None:
                 operation_type = st.selectbox("选择运算", ["➕", "➖", "✖️", "➗"])
                 value = st.number_input("添加常数", value=1.0, key="value_input")
 
-                col1, col2, *_ = st.columns(15)
+                col1, col2, *_ = st.columns(10)
 
                 with col1:
                     if st.button("添加计算"):
