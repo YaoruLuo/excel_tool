@@ -65,6 +65,7 @@ if uploaded_file is not None:
             st.session_state.selectedSheet = True
         else:
             st.session_state.selectedSheet = False
+            st.session_state.filter_click_button = False
 
 
         if st.session_state.selectedSheet:
@@ -105,6 +106,8 @@ if uploaded_file is not None:
                 maxVal = st.number_input(f"设置上限（默认为最大值）:", value=df[column].max())
 
                 if st.button(f"过滤 {column}"):
+                    filter_click_button()
+                if st.session_state.filter_click_button:
                     filtered_df = df[(df[column] >= minVal) & (df[column] <= maxVal)]
                     st.write(f"过滤后的数据：{column} (范围: {minVal} - {maxVal})")
                     st.dataframe(filtered_df)
@@ -126,6 +129,7 @@ if uploaded_file is not None:
             """, unsafe_allow_html=True)
             with st.expander("Operation Stream", expanded=True):
 
+                st.success(f"已选择要计算的列：{column}")
                 operation_type = st.selectbox("选择运算", ["➕", "➖", "✖️", "➗"])
                 value = st.number_input("添加常数", value=1.0, key="value_input")
 
